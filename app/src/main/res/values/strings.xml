@@ -4,5 +4,5 @@
     <string name="app_name">MyTweets</string>
     <string name="login_label">Connect to Twitter</string>
     <string name="title_activity_timeline">Timeline</string>
-
+    <string name="compose_tweet">Compose Tweet</string>
 </resources>
