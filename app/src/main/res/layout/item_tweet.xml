@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="User Name"
         android:id="@+id/tvUserName"
         android:textStyle="bold"
         android:layout_toEndOf="@+id/ivProfileImage"
@@ -23,10 +23,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Tweet Text"
         android:id="@+id/tvBody"
         android:layout_below="@+id/tvUserName"
         android:layout_toEndOf="@+id/ivProfileImage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CreatedAt"
+        android:id="@+id/tvCreatedAt"
+        android:layout_alignTop="@+id/tvUserName"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

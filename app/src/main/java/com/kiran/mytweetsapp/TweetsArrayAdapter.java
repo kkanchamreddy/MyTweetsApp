@@ -1,6 +1,7 @@
 package com.kiran.mytweetsapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,30 +22,49 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         super(context,android.R.layout.simple_list_item_1,tweets);
     }
 
+    // View lookup cache
+    private static class ViewHolder {
+        ImageView profileImage;
+        TextView userName;
+        TextView tweetBody;
+        TextView createdAt;
+    }
+
     //TODO: ViewHolder pattern
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //1. Get the tweet
         Tweet tweet = getItem(position);
 
         //2 Find or Inflate the template
+        ViewHolder viewHolder; // view lookup cache stored in tag
+
         if(convertView == null) {
+            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tweet,parent,false);
+
+            //3.Find the subviews to fill with data in the template
+            viewHolder.profileImage = (ImageView)convertView.findViewById(R.id.ivProfileImage);
+            viewHolder.userName = (TextView)convertView.findViewById(R.id.tvUserName);
+            viewHolder.tweetBody = (TextView)convertView.findViewById(R.id.tvBody);
+            viewHolder.createdAt = (TextView)convertView.findViewById(R.id.tvCreatedAt);
+
+            convertView.setTag(viewHolder);
+
+        }else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //3. Find the subviews to fill with data in the template
-        ImageView ivImageView = (ImageView)convertView.findViewById(R.id.ivProfileImage);
-        TextView tvUserName = (TextView)convertView.findViewById(R.id.tvUserName);
-        TextView tvTweetBody = (TextView)convertView.findViewById(R.id.tvBody);
-
+        Log.d("User Name", tweet.getUser().getName());
 
         //4.Populate the data into subviews
+        viewHolder.userName.setText(tweet.getUser().getName());
+        viewHolder.tweetBody.setText(tweet.getBody());
+        viewHolder.createdAt.setText(Tweet.getRelativeTimeAgo(tweet.getCreatedAt()));
+        viewHolder.profileImage.setImageResource(android.R.color.transparent);
 
-        tvUserName.setText(tweet.getUser().getName());
-        tvTweetBody.setText(tweet.getBody());
-        ivImageView.setImageResource(android.R.color.transparent);
-
-        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivImageView);
+        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.profileImage);
 
         //5. Return the view to be inserted into the list
         return convertView;
