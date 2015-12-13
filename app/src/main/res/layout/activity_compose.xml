@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.kiran.mytweetsapp.ComposeActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/compose_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ToolbarTheme"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_below="@+id/compose_toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="@string/etComposeHint"
+        android:theme="@style/ComposeTextTheme"
+        android:lines="5"
+        android:singleLine="false"
+        android:gravity="top|left"
+        android:maxLength="140" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tweet"
+        android:id="@+id/button"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/roundedcorner"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+        android:elegantTextHeight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maxCharCount"
+        android:id="@+id/tVCharCount"
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/button" />
+
+</RelativeLayout>

@@ -27,4 +27,13 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="ComposeTextTheme">
+        <!-- Used for the bottom line when not selected / focused -->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/twitter</item>
+        <item name="android:gravity">top</item>
+
+        <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
+    </style>
+
 </resources>

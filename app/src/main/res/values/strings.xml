@@ -5,4 +5,9 @@
     <string name="login_label">Connect to Twitter</string>
     <string name="title_activity_timeline">Timeline</string>
     <string name="compose_tweet">Compose Tweet</string>
+    <string name="home">Home</string>
+    <string name="etComposeHint">What\'s Happening?</string>
+    <string name="tweet">Tweet</string>
+    <string name="maxCharCount">140</string>
+
 </resources>
