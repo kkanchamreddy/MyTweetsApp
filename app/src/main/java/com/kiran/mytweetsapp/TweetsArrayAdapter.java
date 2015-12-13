@@ -1,6 +1,7 @@
 package com.kiran.mytweetsapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kiran.mytweetsapp.models.Tweet;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.List;
 
@@ -17,6 +20,14 @@ import java.util.List;
  * Created by kkanchamreddy on 12/11/15.
  */
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
+
+    Transformation transformation = new RoundedTransformationBuilder()
+                .borderColor(Color.BLACK)
+                .borderWidthDp(0.25f)
+                .cornerRadiusDp(10)
+                .oval(true)
+                .build();
+
     public TweetsArrayAdapter(Context context, List<Tweet> tweets) {
         super(context,android.R.layout.simple_list_item_1,tweets);
     }
@@ -61,7 +72,10 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.createdAt.setText(Tweet.getRelativeTimeAgo(tweet.getCreatedAt()));
         viewHolder.profileImage.setImageResource(android.R.color.transparent);
 
-        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(viewHolder.profileImage);
+        Picasso.with(getContext())
+                .load(tweet.getUser().getProfileImageUrl())
+                .transform(transformation)
+                .into(viewHolder.profileImage);
 
         //5. Return the view to be inserted into the list
         return convertView;

@@ -35,5 +35,6 @@ dependencies {
     // ActiveAndroid for simple persistence with an ORM
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.makeramen:roundedimageview:2.2.1'
 
 }
