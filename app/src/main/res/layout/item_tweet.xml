@@ -25,6 +25,9 @@
         android:layout_height="wrap_content"
         android:text="Tweet Text"
         android:id="@+id/tvBody"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:descendantFocusability="blocksDescendants"
         android:layout_below="@+id/tvUserName"
         android:layout_toEndOf="@+id/ivProfileImage" />
 
