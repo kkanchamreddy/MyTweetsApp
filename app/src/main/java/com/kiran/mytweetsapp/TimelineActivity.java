@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kiran.mytweetsapp.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +30,8 @@ public class TimelineActivity extends AppCompatActivity {
     private int lastMaxId = 0;
 
     private SwipeRefreshLayout swipeContainer;
+
+    private final int REQUEST_CODE = 1;
 
 
     @Override
@@ -136,13 +139,24 @@ public class TimelineActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_compose:
                 Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_CODE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       
+        if (resultCode == RESULT_OK  && requestCode == REQUEST_CODE) {
+            // Extract name value from result extras
+            fetchTimelineAsync(0);
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, "Tweet success!!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
