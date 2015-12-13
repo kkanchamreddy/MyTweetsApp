@@ -41,9 +41,9 @@ public class ComposeActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_twitter_logo);
+        //getSupportActionBar().setLogo(R.drawable.ic_twitter_logo);
         getSupportActionBar().setTitle(R.string.compose_tweet);
-        getSupportActionBar().setDisplayShowTitleEnabled(false); //optional
+
 
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

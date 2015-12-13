@@ -150,7 +150,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       
+
         if (resultCode == RESULT_OK  && requestCode == REQUEST_CODE) {
             // Extract name value from result extras
             fetchTimelineAsync(0);
