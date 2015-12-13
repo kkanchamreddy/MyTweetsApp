@@ -1,7 +1,6 @@
 package com.kiran.mytweetsapp;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +54,6 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-        Log.d("User Name", tweet.getUser().getName());
 
         //4.Populate the data into subviews
         viewHolder.userName.setText(tweet.getUser().getName());

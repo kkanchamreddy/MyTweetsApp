@@ -21,7 +21,7 @@ public class Tweet {
     private long uid; //unique tweet id
     private String createdAt;
     private User user;
-
+    private static long lastTweetId;
 
     public String getBody() {
         return body;
@@ -57,8 +57,8 @@ public class Tweet {
 
     public static ArrayList<Tweet> fromJSONArray(JSONArray response) {
         ArrayList<Tweet> tweetList = new ArrayList<>();
-
-        for(int i = 0; i< response.length(); i++) {
+        int tweetCount = response.length();
+        for(int i = 0; i< tweetCount; i++) {
             JSONObject tweetJSON = null;
             try {
                 tweetJSON = response.getJSONObject(i);
@@ -74,6 +74,7 @@ public class Tweet {
 
         }
 
+        lastTweetId = tweetList.get(tweetCount -1).getUid();
         return tweetList;
     }
 
@@ -94,4 +95,9 @@ public class Tweet {
 
         return relativeDate;
     }
+
+    public static long getLastTweetId() {
+        return lastTweetId;
+    }
+
 }
