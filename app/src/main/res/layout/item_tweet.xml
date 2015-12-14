@@ -44,5 +44,13 @@
         android:layout_alignTop="@+id/tvUserName"
         android:layout_alignParentEnd="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivEmbeddedimage"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignStart="@+id/tvBody" />
+
 
 </RelativeLayout>

@@ -20,6 +20,7 @@ public class Tweet {
     private String body;
     private long uid; //unique tweet id
     private String createdAt;
+    private String embeddedImageUrl;
     private User user;
     private static long lastTweetId;
 
@@ -34,6 +35,9 @@ public class Tweet {
     public String getCreatedAt() {
         return createdAt;
     }
+    public String getEmbeddedImageUrl() {
+        return embeddedImageUrl;
+    }
 
     public User getUser() {
         return user;
@@ -46,13 +50,18 @@ public class Tweet {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
+            JSONObject entities = jsonObject.getJSONObject("entities");
+           if(entities != null && entities.has("media")) {
+               JSONObject firstMediaObj = (JSONObject)entities.getJSONArray("media").get(0);
+               tweet.embeddedImageUrl = firstMediaObj.getString("media_url");
+               //Log.d("Media Image", firstMediaObj.getString("media_url"));
+            }
+
             tweet.user = User.fromJSon(jsonObject.getJSONObject("user"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return tweet;
-
     }
 
     public static ArrayList<Tweet> fromJSONArray(JSONArray response) {

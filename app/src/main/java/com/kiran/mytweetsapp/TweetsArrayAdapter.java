@@ -38,6 +38,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView userName;
         TextView tweetBody;
         TextView createdAt;
+        ImageView embeddedImage;
     }
 
     //TODO: ViewHolder pattern
@@ -59,6 +60,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             viewHolder.userName = (TextView)convertView.findViewById(R.id.tvUserName);
             viewHolder.tweetBody = (TextView)convertView.findViewById(R.id.tvBody);
             viewHolder.createdAt = (TextView)convertView.findViewById(R.id.tvCreatedAt);
+            viewHolder.embeddedImage =(ImageView)convertView.findViewById(R.id.ivEmbeddedimage);
 
             convertView.setTag(viewHolder);
 
@@ -71,11 +73,20 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.tweetBody.setText(tweet.getBody());
         viewHolder.createdAt.setText(Tweet.getRelativeTimeAgo(tweet.getCreatedAt()));
         viewHolder.profileImage.setImageResource(android.R.color.transparent);
+        viewHolder.embeddedImage.setImageResource(android.R.color.transparent);
 
         Picasso.with(getContext())
                 .load(tweet.getUser().getProfileImageUrl())
                 .transform(transformation)
                 .into(viewHolder.profileImage);
+
+        String embeddedImageUrl = tweet.getEmbeddedImageUrl();
+        if(embeddedImageUrl != null) {
+            Picasso.with(getContext())
+                    .load(embeddedImageUrl)
+                    .into(viewHolder.embeddedImage);
+        }
+
 
         //5. Return the view to be inserted into the list
         return convertView;
