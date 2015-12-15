@@ -32,10 +32,13 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        String inReplyTo = getIntent().getStringExtra("in_reply_to");
 
         etTweetText =(EditText)findViewById(R.id.editText);
         tvCharCount =(TextView)findViewById(R.id.tVCharCount);
         btnTweet = (Button)findViewById(R.id.button);
+
+
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.compose_toolbar);
         setSupportActionBar(myToolbar);
@@ -95,6 +98,10 @@ public class ComposeActivity extends AppCompatActivity {
                 tvCharCount.setText(140 - s.toString().length() + "/140");
             }
         });
+
+        if(inReplyTo != null) {
+            etTweetText.setText(inReplyTo);
+        }
 
 
     }
