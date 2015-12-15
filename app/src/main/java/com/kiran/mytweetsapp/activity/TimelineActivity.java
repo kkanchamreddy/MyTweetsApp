@@ -1,4 +1,4 @@
-package com.kiran.mytweetsapp;
+package com.kiran.mytweetsapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.kiran.mytweetsapp.EndlessScrollListener;
+import com.kiran.mytweetsapp.R;
+import com.kiran.mytweetsapp.TweetsArrayAdapter;
+import com.kiran.mytweetsapp.TwitterApplication;
+import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
