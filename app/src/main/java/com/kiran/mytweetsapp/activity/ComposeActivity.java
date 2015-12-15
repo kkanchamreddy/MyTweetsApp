@@ -40,11 +40,8 @@ public class ComposeActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.compose_toolbar);
         setSupportActionBar(myToolbar);
 
-        //getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setLogo(R.drawable.ic_twitter_logo);
         getSupportActionBar().setTitle(R.string.compose_tweet);
 
 

@@ -47,12 +47,9 @@ public class TimelineActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.home_toolbar);
         setSupportActionBar(myToolbar);
 
-        //getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         getSupportActionBar().setLogo(R.drawable.ic_twitter_logo);
         getSupportActionBar().setTitle(R.string.home);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false); //optional
 
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
