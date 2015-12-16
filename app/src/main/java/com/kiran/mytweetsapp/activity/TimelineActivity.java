@@ -38,6 +38,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     private final int REQUEST_CODE = 1;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateTimeline(lastMaxId);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +124,11 @@ public class TimelineActivity extends AppCompatActivity {
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
             }
-
-            public void onFailure(Throwable e) {
-                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("DEBUG", "Fetch timeline error: " + errorResponse);
             }
+
         });
     }
 

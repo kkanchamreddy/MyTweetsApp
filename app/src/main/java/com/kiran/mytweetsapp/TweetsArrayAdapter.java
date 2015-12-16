@@ -25,7 +25,7 @@ import java.util.List;
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
     private Context activityContext;
-    private final int REQUEST_CODE = 2;
+    private final int REQUEST_CODE = 1;
     Transformation transformation = new RoundedTransformationBuilder()
                 .borderColor(Color.BLACK)
                 .borderWidthDp(0.25f)
