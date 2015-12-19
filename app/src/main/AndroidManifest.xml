@@ -48,7 +48,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TimelineActivity" />
-        <activity android:name=".activity.ComposeActivity"></activity>
+        <activity android:name=".activity.ComposeActivity" />
+        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

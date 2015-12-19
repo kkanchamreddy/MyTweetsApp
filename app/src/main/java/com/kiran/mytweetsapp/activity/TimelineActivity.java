@@ -78,6 +78,10 @@ public class TimelineActivity extends AppCompatActivity {
                 Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
                 startActivityForResult(i, REQUEST_CODE);
                 return true;
+            case R.id.action_profile:
+                Intent profileIntent = new Intent(TimelineActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 

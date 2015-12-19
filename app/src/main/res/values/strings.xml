@@ -9,5 +9,6 @@
     <string name="etComposeHint">What\'s Happening?</string>
     <string name="tweet">Tweet</string>
     <string name="maxCharCount">140</string>
+    <string name="view_profile">View Profile</string>
 
 </resources>
