@@ -91,7 +91,7 @@ public class HomeTimelineFragment extends TweetsList{
                 // ...the data has come back, add new items to your adapter...
                 addAll(Tweet.fromJSONArray(response));
                 // Now we call setRefreshing(false) to signal refresh has finished
-                //swipeContainer.setRefreshing(false);
+                swipeContainer.setRefreshing(false);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
