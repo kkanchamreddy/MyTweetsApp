@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kiran.mytweetsapp.activity.ComposeActivity;
+import com.kiran.mytweetsapp.activity.ProfileActivity;
 import com.kiran.mytweetsapp.models.Tweet;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -93,17 +94,27 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.replyToIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //Tweet currentTweet = getItem(v.getId());
                 Intent i = new Intent(activityContext, ComposeActivity.class);
                 i.putExtra("in_reply_to", "@" + tweet.getUser().getScreenName());
                 ((Activity) activityContext).startActivityForResult(i, REQUEST_CODE);
             }
         });
 
+
         Picasso.with(getContext())
                 .load(tweet.getUser().getProfileImageUrl())
                 .transform(transformation)
                 .into(viewHolder.profileImage);
+
+        //Add Listener to ProfileImage
+        viewHolder.profileImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(activityContext, ProfileActivity.class);
+                i.putExtra("screen_name", tweet.getUser().getScreenName());
+                ((Activity) activityContext).startActivity(i);
+            }
+        });
 
         String embeddedImageUrl = tweet.getEmbeddedImageUrl();
         if(embeddedImageUrl != null) {

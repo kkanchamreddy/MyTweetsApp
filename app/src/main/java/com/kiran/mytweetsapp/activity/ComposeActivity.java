@@ -38,11 +38,8 @@ public class ComposeActivity extends AppCompatActivity {
         tvCharCount =(TextView)findViewById(R.id.tVCharCount);
         btnTweet = (Button)findViewById(R.id.button);
 
-
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.compose_toolbar);
         setSupportActionBar(myToolbar);
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.compose_tweet);

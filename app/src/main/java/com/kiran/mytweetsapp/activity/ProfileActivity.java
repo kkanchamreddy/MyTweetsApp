@@ -24,12 +24,13 @@ public class ProfileActivity extends AppCompatActivity {
     TwitterClient client;
     User user;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        client = TwitterApplication.getRestClient();
+        //String screenName = getIntent().getStringExtra("screen_name");
 
         Toolbar profileToolbar = (Toolbar) findViewById(R.id.profile_toolbar);
         setSupportActionBar(profileToolbar);
@@ -42,8 +43,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        client = TwitterApplication.getRestClient();
-        client.getUserInfo(new JsonHttpResponseHandler(){
+        //Get the screen name from the activity that launches it
+        String screenName = getIntent().getStringExtra("screen_name");
+
+
+
+        client.getUserInfo(screenName, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 //super.onSuccess(statusCode, headers, response);
@@ -58,14 +63,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //Get the screen name from the activity that launches it
-        String screenName = getIntent().getStringExtra("screen_name");
 
         if(savedInstanceState == null) {
             //Create User Timeline Fragment
             UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
             //Create User Profile Header Fragment
-            UserInfoFragment userInfoFragment = UserInfoFragment.newInstance();
+            UserInfoFragment userInfoFragment = UserInfoFragment.newInstance(screenName);
 
             //Display user timeline fragment dynamically
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

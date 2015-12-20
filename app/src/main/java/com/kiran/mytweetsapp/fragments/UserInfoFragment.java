@@ -35,9 +35,14 @@ public class UserInfoFragment extends Fragment {
 
 
     // Creates a new fragment given an int and title
-    public static UserInfoFragment newInstance() {
-        //UserInfoFragment userFragment = new UserInfoFragment();
-        return new UserInfoFragment();
+    public static UserInfoFragment newInstance(String screenName) {
+        UserInfoFragment userFragment = new UserInfoFragment();
+
+        Bundle args = new Bundle();
+        args.putString("screen_name", screenName);
+        userFragment.setArguments(args);
+
+        return  userFragment;
     }
 
     //Infaltion Logic
@@ -76,7 +81,8 @@ public class UserInfoFragment extends Fragment {
     }
     */
     private void populateUserInfo() {
-        client.getUserInfo(new JsonHttpResponseHandler() {
+        String screenName = getArguments().getString("screen_name");
+        client.getUserInfo(screenName, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
