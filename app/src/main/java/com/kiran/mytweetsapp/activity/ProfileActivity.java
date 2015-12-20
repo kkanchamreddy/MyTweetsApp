@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TwitterApplication;
@@ -31,6 +33,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         Toolbar profileToolbar = (Toolbar) findViewById(R.id.profile_toolbar);
         setSupportActionBar(profileToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        profileToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         client = TwitterApplication.getRestClient();
         client.getUserInfo(new JsonHttpResponseHandler(){
@@ -63,9 +73,14 @@ public class ProfileActivity extends AppCompatActivity {
             ft.replace(R.id.flContainer, userTimelineFragment);
             ft.replace(R.id.flUserHeader, userInfoFragment);
             ft.commit();
-
         }
+    }
 
-
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.profile, menu);
+        return true;
     }
 }
