@@ -36,8 +36,9 @@ The following **bonus** features are implemented:
 * [ ] User can view their direct messages (or send new ones)
 
 The following **additional** features are implemented:
-  [X] Embed Images in Tweets
-* [ ] List anything else that you can get done to improve the app functionality!
+* [X] Embed Images in Tweets
+* [X] Show user's profile background image
+
 
 ## Video Walkthrough
 
