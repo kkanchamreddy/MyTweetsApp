@@ -59,12 +59,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             //Display user timeline fragment dynamically
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.flUserHeader, userInfoFragment);
+
             ft.replace(R.id.flContainer, userTimelineFragment);
+            ft.replace(R.id.flUserHeader, userInfoFragment);
             ft.commit();
-
-
-
 
         }
 

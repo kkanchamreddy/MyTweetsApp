@@ -11,10 +11,12 @@ public class User {
     private long uid;
     private String screenName;
     private String profileImageUrl;
+    private String bgImageUrl;
     private String tagLine;
     private int tweetCount;
     private int followersCount;
     private int followingCount;
+
 
 
     public String getName() {return name;}
@@ -24,11 +26,10 @@ public class User {
     public String getScreenName() {
         return screenName;
     }
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
+    public String getProfileImageUrl() {return profileImageUrl;}
+    public String getBackgroundImageUrl() {return bgImageUrl;}
     public String getTagLine() { return tagLine; }
-    public int getFollwersCount() { return followersCount; }
+    public int getFollowersCount() { return followersCount; }
     public int getFollowingCount() { return followingCount;}
     public int getTweetCount() {return tweetCount;}
 
@@ -44,6 +45,7 @@ public class User {
             user.followersCount = json.getInt("followers_count");
             user.followingCount = json.getInt("friends_count");
             user.tweetCount = json.getInt("statuses_count");
+            user.bgImageUrl =  json.getString("profile_background_image_url");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -52,4 +54,6 @@ public class User {
 
 
     }
+
+
 }

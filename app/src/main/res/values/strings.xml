@@ -10,5 +10,8 @@
     <string name="tweet">Tweet</string>
     <string name="maxCharCount">140</string>
     <string name="view_profile">View Profile</string>
+    <string name="tweets">Tweets</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
 
 </resources>
