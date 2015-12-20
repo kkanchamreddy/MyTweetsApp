@@ -6,7 +6,7 @@
     tools:context="com.kiran.mytweetsapp.activity.ProfileActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/home_toolbar"
+        android:id="@+id/profile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="5dp"
@@ -19,12 +19,16 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/rlUserHeader"></RelativeLayout>
+        android:id="@+id/rlUserHeader">
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rlUserHeader"
         android:layout_alignParentStart="true"
-        android:id="@+id/flContainer"></FrameLayout>
+        android:id="@+id/flContainer">
+
+    </FrameLayout>
 </RelativeLayout>

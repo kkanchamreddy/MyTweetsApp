@@ -93,7 +93,7 @@ public class TwitterClient extends OAuthBaseClient {
 
     //Get User Info
     public void getUserInfo(AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("statuses/verify_credentials.json");
+        String apiUrl = getApiUrl("account/verify_credentials.json");
         client.get(apiUrl, null, handler);
     }
 }

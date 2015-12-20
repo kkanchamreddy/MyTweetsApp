@@ -3,6 +3,8 @@ package com.kiran.mytweetsapp.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TwitterApplication;
@@ -24,6 +26,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Toolbar profileToolbar = (Toolbar) findViewById(R.id.profile_toolbar);
+        setSupportActionBar(profileToolbar);
+
         client = TwitterApplication.getRestClient();
         client.getUserInfo(new JsonHttpResponseHandler(){
             @Override
@@ -32,7 +37,11 @@ public class ProfileActivity extends AppCompatActivity {
                 user = User.fromJSon(response);
                 //Current User's info
                 getSupportActionBar().setTitle(user.getScreenName());
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("DEBUG", "User Info error: " + errorResponse);
             }
         });
 
