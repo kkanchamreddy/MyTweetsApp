@@ -9,6 +9,7 @@ import android.util.Log;
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TwitterApplication;
 import com.kiran.mytweetsapp.TwitterClient;
+import com.kiran.mytweetsapp.fragments.UserInfoFragment;
 import com.kiran.mytweetsapp.fragments.UserTimelineFragment;
 import com.kiran.mytweetsapp.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -20,6 +21,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     TwitterClient client;
     User user;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
                 //super.onSuccess(statusCode, headers, response);
                 user = User.fromJSon(response);
                 //Current User's info
-                getSupportActionBar().setTitle(user.getScreenName());
+                getSupportActionBar().setTitle("@" + user.getScreenName());
             }
 
             @Override
@@ -51,11 +54,18 @@ public class ProfileActivity extends AppCompatActivity {
         if(savedInstanceState == null) {
             //Create User Timeline Fragment
             UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
+            //Create User Profile Header Fragment
+            UserInfoFragment userInfoFragment = UserInfoFragment.newInstance();
 
             //Display user timeline fragment dynamically
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.flContainer,userTimelineFragment);
+            ft.replace(R.id.flUserHeader, userInfoFragment);
+            ft.replace(R.id.flContainer, userTimelineFragment);
             ft.commit();
+
+
+
+
         }
 
 

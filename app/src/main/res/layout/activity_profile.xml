@@ -14,19 +14,19 @@
         android:theme="@style/ToolbarTheme"
         />
 
-    <RelativeLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/rlUserHeader">
+        android:layout_below="@+id/profile_toolbar"
+        android:id="@+id/flUserHeader">
 
-    </RelativeLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rlUserHeader"
+        android:layout_below="@+id/flUserHeader"
         android:layout_alignParentStart="true"
         android:id="@+id/flContainer">
 

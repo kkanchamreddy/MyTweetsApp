@@ -27,7 +27,6 @@ public class UserTimelineFragment extends TweetsList{
     private int lastMaxId = 0;
 
     // Creates a new fragment given an int and title
-    // DemoFragment.newInstance(5, "Hello");
     public static UserTimelineFragment newInstance( String screen_name) {
         UserTimelineFragment userFragment = new UserTimelineFragment();
         Bundle args = new Bundle();
