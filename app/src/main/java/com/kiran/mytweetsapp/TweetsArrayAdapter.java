@@ -47,6 +47,9 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView createdAt;
         ImageView embeddedImage;
         ImageView replyToIcon;
+        TextView retweetCount;
+        ImageView likeIcon;
+        TextView likeCount;
     }
 
     //TODO: ViewHolder pattern
@@ -70,10 +73,9 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             viewHolder.createdAt = (TextView)convertView.findViewById(R.id.tvCreatedAt);
             viewHolder.embeddedImage =(ImageView)convertView.findViewById(R.id.ivEmbeddedimage);
             viewHolder.replyToIcon = (ImageView)convertView.findViewById(R.id.ivReplyToIcon);
-
-            //ImageView ivReplyToIcon =   (ImageView)convertView.findViewById(R.id.ivReplyToIcon);
-
-            viewHolder.replyToIcon = (ImageView)convertView.findViewById(R.id.ivReplyToIcon);
+            viewHolder.likeIcon = (ImageView)convertView.findViewById(R.id.ivLikeIcon);
+            viewHolder.retweetCount = (TextView)convertView.findViewById(R.id.tvRetweetCount);
+            viewHolder.likeCount = (TextView)convertView.findViewById(R.id.tvLikeCount);
 
 
             convertView.setTag(viewHolder);
@@ -88,9 +90,10 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.createdAt.setText(Tweet.getRelativeTimeAgo(tweet.getCreatedAt()));
         viewHolder.profileImage.setImageResource(android.R.color.transparent);
         viewHolder.embeddedImage.setImageResource(android.R.color.transparent);
+        viewHolder.retweetCount.setText(String.valueOf(tweet.getRetweetCount()));
+       // viewHolder.likeCount.setText(String.valueOf(tweet.getLikeCount()));
 
-        //viewHolder.replyToIcon.setOnClickListener(new ReplyToListener(activityContext, tweet.getUser().getScreenName()));
-        //viewHolder.replyToIcon.setId(position);
+
         viewHolder.replyToIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -127,22 +130,6 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         //5. Return the view to be inserted into the list
         return convertView;
     }
-    /* Subclass OnClickListener to pass in extra context */
-    /*
-    private class ReplyToListener implements View.OnClickListener{
-        private Context mContext;
-        private String inReplyTo;
-        public ReplyToListener(Context context, String value){
-            mContext = context;
-            inReplyTo = value;
-        }
 
-        @Override
-        public void onClick(View v){
-            Intent i = new Intent(activityContext, ComposeActivity.class);
-            i.putExtra("in_reply_to", "@" + inReplyTo);
-            ((Activity) activityContext).startActivityForResult(i, REQUEST_CODE);
-        }
-    }*/
 
 }

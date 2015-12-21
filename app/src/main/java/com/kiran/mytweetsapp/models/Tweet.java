@@ -21,24 +21,25 @@ public class Tweet {
     private long uid; //unique tweet id
     private String createdAt;
     private String embeddedImageUrl;
+    private int retweetCount;
+    private int likeCount;
     private User user;
     private static long lastTweetId;
 
     public String getBody() {
         return body;
     }
-
     public long getUid() {
         return uid;
     }
-
     public String getCreatedAt() {
         return createdAt;
     }
     public String getEmbeddedImageUrl() {
         return embeddedImageUrl;
     }
-
+    public int getRetweetCount() {return retweetCount;}
+    public int getLikeCount(){return  likeCount;}
     public User getUser() {
         return user;
     }
@@ -50,6 +51,8 @@ public class Tweet {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
+            tweet.retweetCount = jsonObject.getInt("retweet_count");
+            //tweet.likeCount =jsonObject.getInt("favourites_count");
             JSONObject entities = jsonObject.getJSONObject("entities");
            if(entities != null && entities.has("media")) {
                JSONObject firstMediaObj = (JSONObject)entities.getJSONArray("media").get(0);

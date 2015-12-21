@@ -1,5 +1,7 @@
 package com.kiran.mytweetsapp.models;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +37,7 @@ public class User {
 
     public static User fromJSon(JSONObject json) {
         User user = new User();
-
+Log.d("USER", json.toString());
         try {
             user.name = json.getString("name");
             user.uid = json.getLong("id");

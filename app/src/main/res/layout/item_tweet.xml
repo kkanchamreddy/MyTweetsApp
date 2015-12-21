@@ -73,14 +73,27 @@
             android:src="@drawable/ic_retweet"
             android:layout_toEndOf="@id/ivReplyToIcon"
             android:layout_below="@+id/ivEmbeddedimage"
-            android:layout_marginEnd="25dp"
+            android:layout_marginEnd="3dp"
             android:layout_marginBottom="-5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#8899a6"
+            android:textSize="15sp"
+            android:id="@+id/tvRetweetCount"
+            android:layout_marginTop="5dp"
+            android:layout_alignBottom="@id/ivReTweetIcon"
+            android:layout_toEndOf="@id/ivReTweetIcon"
+
+            android:layout_below="@+id/ivEmbeddedimage"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivLikeIcon"
             android:src="@drawable/ic_like"
+            android:layout_marginStart="30dp"
             android:layout_toEndOf="@id/ivReTweetIcon"
             android:layout_below="@+id/ivEmbeddedimage"
             android:layout_marginBottom="-5dp"/>
