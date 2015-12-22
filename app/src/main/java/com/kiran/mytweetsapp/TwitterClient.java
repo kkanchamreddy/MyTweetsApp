@@ -114,4 +114,20 @@ public class TwitterClient extends OAuthBaseClient {
 
 		client.post(apiUrl,params,handler);
 	}
+
+    //Like/Favourite a tweet
+    public void postLike(long id,boolean isLiked, AsyncHttpResponseHandler handler) {
+        String apiUrl;
+        if(isLiked) {
+            apiUrl = getApiUrl("favorites/destroy.json");
+        } else {
+            apiUrl = getApiUrl("favorites/create.json");
+        }
+
+        RequestParams params = new RequestParams();
+        params.put("id", id);
+
+        client.post(apiUrl,params,handler);
+
+    }
 }

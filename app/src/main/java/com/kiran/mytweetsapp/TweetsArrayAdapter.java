@@ -67,7 +67,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         final Tweet tweet = getItem(position);
 
         //2 Find or Inflate the template
-        ViewHolder viewHolder; // view lookup cache stored in tag
+        final ViewHolder viewHolder; // view lookup cache stored in tag
 
         if(convertView == null) {
             viewHolder = new ViewHolder();
@@ -99,9 +99,13 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.profileImage.setImageResource(android.R.color.transparent);
         viewHolder.embeddedImage.setImageResource(android.R.color.transparent);
         viewHolder.retweetCount.setText(String.valueOf(tweet.getRetweetCount()));
-        viewHolder.likeCount.setText(String.valueOf(tweet.getLikeCount()));
+        //viewHolder.likeCount.setText(String.valueOf(tweet.getLikeCount()));
 
+        if(tweet.isliked()) {
+            viewHolder.likeIcon.setImageResource(R.drawable.ic_liked);
+        }
 
+        //Handle the click event on Reply to Icon
         viewHolder.replyToIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -111,6 +115,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             }
         });
 
+        //Handle the Click event on the ReTweet Icon
         viewHolder.retweetIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +130,38 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         Toast.makeText(getContext(), "Retweet Failed,please try again", Toast.LENGTH_LONG).show();
                         Log.d("RETWEET_FAILURE", errorResponse.toString());
+                    }
+                });
+
+            }
+        });
+
+        //Handle the ClickEvent on the Like Icon
+        viewHolder.likeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwitterClient client = TwitterApplication.getRestClient();
+
+                client.postLike(tweet.getUid(), tweet.isliked(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        String toastMsg;
+                        Tweet tempTweet = Tweet.fromJSON(response);
+                        tweet.setLiked(tempTweet.isliked());
+                        if(tempTweet.isliked()) {
+                            viewHolder.likeIcon.setImageResource(R.drawable.ic_liked);
+                            toastMsg = "You liked the tweet!!";
+                        } else {
+                            viewHolder.likeIcon.setImageResource(R.drawable.ic_like);
+                            toastMsg = "You unliked the tweet!!";
+                        }
+                        Toast.makeText(getContext(),toastMsg , Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Toast.makeText(getContext(), " Action failed,please try again", Toast.LENGTH_LONG).show();
+                        Log.d("LIKE_FAILURE", errorResponse.toString());
                     }
                 });
 
