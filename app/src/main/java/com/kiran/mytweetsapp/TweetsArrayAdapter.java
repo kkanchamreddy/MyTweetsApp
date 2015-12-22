@@ -103,6 +103,12 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
         if(tweet.isliked()) {
             viewHolder.likeIcon.setImageResource(R.drawable.ic_liked);
+        } else {
+            viewHolder.likeIcon.setImageResource(R.drawable.ic_like);
+        }
+
+        if(tweet.isliked()) {
+            viewHolder.likeIcon.setImageResource(R.drawable.ic_liked);
         }
 
         //Handle the click event on Reply to Icon
