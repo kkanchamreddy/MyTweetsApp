@@ -93,7 +93,6 @@ public class TwitterClient extends OAuthBaseClient {
 
     //Get User Info
     public void getUserInfo(String screenName, AsyncHttpResponseHandler handler) {
-
         String apiUrl;
         if(screenName == null) {
             apiUrl = getApiUrl("account/verify_credentials.json");
@@ -104,4 +103,15 @@ public class TwitterClient extends OAuthBaseClient {
         params.put("screen_name", screenName);
         client.get(apiUrl, params, handler);
     }
+
+	//Retweet a tweet
+	//Params: id (tweet id)
+
+	public void postRetweet(long id, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/retweet/" + String.valueOf(id) + ".json");
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+
+		client.post(apiUrl,params,handler);
+	}
 }

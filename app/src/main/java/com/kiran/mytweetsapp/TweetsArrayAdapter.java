@@ -4,19 +4,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kiran.mytweetsapp.activity.ComposeActivity;
 import com.kiran.mytweetsapp.activity.ProfileActivity;
 import com.kiran.mytweetsapp.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -47,6 +53,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView createdAt;
         ImageView embeddedImage;
         ImageView replyToIcon;
+        ImageView retweetIcon;
         TextView retweetCount;
         ImageView likeIcon;
         TextView likeCount;
@@ -76,6 +83,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             viewHolder.likeIcon = (ImageView)convertView.findViewById(R.id.ivLikeIcon);
             viewHolder.retweetCount = (TextView)convertView.findViewById(R.id.tvRetweetCount);
             viewHolder.likeCount = (TextView)convertView.findViewById(R.id.tvLikeCount);
+            viewHolder.retweetIcon = (ImageView)convertView.findViewById(R.id.ivReTweetIcon);
 
 
             convertView.setTag(viewHolder);
@@ -91,7 +99,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         viewHolder.profileImage.setImageResource(android.R.color.transparent);
         viewHolder.embeddedImage.setImageResource(android.R.color.transparent);
         viewHolder.retweetCount.setText(String.valueOf(tweet.getRetweetCount()));
-       // viewHolder.likeCount.setText(String.valueOf(tweet.getLikeCount()));
+        viewHolder.likeCount.setText(String.valueOf(tweet.getLikeCount()));
 
 
         viewHolder.replyToIcon.setOnClickListener(new View.OnClickListener(){
@@ -100,6 +108,26 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
                 Intent i = new Intent(activityContext, ComposeActivity.class);
                 i.putExtra("in_reply_to", "@" + tweet.getUser().getScreenName());
                 ((Activity) activityContext).startActivityForResult(i, REQUEST_CODE);
+            }
+        });
+
+        viewHolder.retweetIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwitterClient client = TwitterApplication.getRestClient();
+                client.postRetweet(tweet.getUid(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Toast.makeText(getContext(), "Successfully Retweeted!!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Toast.makeText(getContext(), "Retweet Failed,please try again", Toast.LENGTH_LONG).show();
+                        Log.d("RETWEET_FAILURE", errorResponse.toString());
+                    }
+                });
+
             }
         });
 
