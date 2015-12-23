@@ -1,6 +1,7 @@
 package com.kiran.mytweetsapp.models;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ public class Tweet {
     private User user;
     private boolean liked;
     private static long lastTweetId;
+    private static long latestTweetId;
 
     public String getBody() {
         return body;
@@ -90,10 +92,21 @@ public class Tweet {
                 e.printStackTrace();
                 continue;
             }
-
         }
 
-        lastTweetId = tweetList.get(tweetCount -1).getUid();
+        if(tweetCount > 1) {
+            lastTweetId = tweetList.get(tweetCount -1).getUid();
+            long firstTweetId = tweetList.get(0).getUid();
+            Log.d("MAX----", String.valueOf(tweetCount));
+            Log.d("FIRST--", String.valueOf(firstTweetId));
+            Log.d("LAST--", String.valueOf(lastTweetId));
+            if(firstTweetId >= lastTweetId) {
+                latestTweetId = firstTweetId;
+            }
+        }
+
+
+        Log.d("LATEST--", String.valueOf(latestTweetId));
         return tweetList;
     }
 
@@ -117,6 +130,10 @@ public class Tweet {
 
     public static long getLastTweetId() {
         return lastTweetId;
+    }
+
+    public static long getLatestTweetId() {
+        return latestTweetId;
     }
 
 }

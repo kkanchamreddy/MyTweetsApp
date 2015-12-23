@@ -66,6 +66,13 @@ public class TweetsListFragment extends Fragment {
         tweetsAdapter.addAll(tweetList);
     }
 
+    public void addAllAtStart(List<Tweet> tweetList) {
+        int count = tweetList.size();
+        for( int i =count-1; i>=0; i--) {
+            tweetsAdapter.insert(tweetList.get(i), 0);
+        }
+    }
+
     public void clear() {
         tweetsAdapter.clear();
     }
@@ -96,9 +103,9 @@ public class TweetsListFragment extends Fragment {
 
         public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
             // Remember to CLEAR OUT old items before appending in the new ones
-            clear();
+            //clear();
             // ...the data has come back, add new items to your adapter...
-            addAll(Tweet.fromJSONArray(response));
+            addAllAtStart(Tweet.fromJSONArray(response));
             // Now we call setRefreshing(false) to signal refresh has finished
             swipeContainer.setRefreshing(false);
         }
