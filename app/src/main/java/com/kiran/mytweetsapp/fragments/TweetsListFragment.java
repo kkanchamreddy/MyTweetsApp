@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,11 @@ import android.widget.ListView;
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TweetsArrayAdapter;
 import com.kiran.mytweetsapp.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +25,7 @@ import java.util.List;
 /**
  * Created by kkanchamreddy on 12/18/15.
  */
-public class TweetsList extends Fragment {
+public class TweetsListFragment extends Fragment {
 
     private TweetsArrayAdapter tweetsAdapter;
     protected ListView lvTweets;
@@ -43,6 +49,7 @@ public class TweetsList extends Fragment {
         return v;
     }
 
+
     //Creation Lifecycle Event
 
 
@@ -61,5 +68,37 @@ public class TweetsList extends Fragment {
 
     public void clear() {
         tweetsAdapter.clear();
+    }
+
+    public class TimelineResponseHandler extends JsonHttpResponseHandler{
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            addAll(Tweet.fromJSONArray(response));
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.d("DEBUG", "Home timeline fetch error: " + errorResponse);
+        }
+
+    }
+
+    public class TimelineSwipeResponseHandler extends JsonHttpResponseHandler{
+
+        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            // Remember to CLEAR OUT old items before appending in the new ones
+            clear();
+            // ...the data has come back, add new items to your adapter...
+            addAll(Tweet.fromJSONArray(response));
+            // Now we call setRefreshing(false) to signal refresh has finished
+            swipeContainer.setRefreshing(false);
+        }
+        @Override
+        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            Log.d("DEBUG", "Fetch timeline error: " + errorResponse);
+        }
+
+
     }
 }

@@ -3,7 +3,6 @@ package com.kiran.mytweetsapp.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,11 @@ import com.kiran.mytweetsapp.EndlessScrollListener;
 import com.kiran.mytweetsapp.TwitterApplication;
 import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * Created by kkanchamreddy on 12/19/15.
  */
-public class MentionsTimelineFragment extends TweetsList {
+public class MentionsTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
     private int lastMaxId = 0;
@@ -68,36 +62,11 @@ public class MentionsTimelineFragment extends TweetsList {
     }
 
     private void populateTimeline(long maxId) {
-        client.getMentionsTimeline(maxId, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                addAll(Tweet.fromJSONArray(response));
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-            }
-
-        });
+        client.getMentionsTimeline(maxId, new TimelineResponseHandler());
     }
 
 
     public void fetchTimelineAsync(int page) {
-        client.getMentionsTimeline(page, new JsonHttpResponseHandler() {
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                // Remember to CLEAR OUT old items before appending in the new ones
-                clear();
-                // ...the data has come back, add new items to your adapter...
-                addAll(Tweet.fromJSONArray(response));
-                // Now we call setRefreshing(false) to signal refresh has finished
-                swipeContainer.setRefreshing(false);
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("DEBUG", "Fetch timeline error: " + errorResponse);
-            }
-
-        });
+        client.getMentionsTimeline(page, new TimelineSwipeResponseHandler());
     }
 }

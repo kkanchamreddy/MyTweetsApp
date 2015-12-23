@@ -21,7 +21,7 @@ import org.json.JSONObject;
 /**
  * Created by kkanchamreddy on 12/19/15.
  */
-public class UserTimelineFragment extends TweetsList{
+public class UserTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
     private int lastMaxId = 0;
