@@ -70,6 +70,10 @@ public class TweetsListFragment extends Fragment {
         tweetsAdapter.clear();
     }
 
+
+   /*
+       Inner class to handle timeline responses( first page and also infinite scrolling) both for Home Timeline & Mentions
+    */
     public class TimelineResponseHandler extends JsonHttpResponseHandler{
 
         @Override
@@ -84,6 +88,10 @@ public class TweetsListFragment extends Fragment {
 
     }
 
+
+    /*
+        Inner class to handle timeline responses(on Swipe down to fetch latest tweets) both for Home Timeline & Mentions
+    */
     public class TimelineSwipeResponseHandler extends JsonHttpResponseHandler{
 
         public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
