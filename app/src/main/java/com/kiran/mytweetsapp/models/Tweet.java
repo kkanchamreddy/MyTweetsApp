@@ -1,7 +1,6 @@
 package com.kiran.mytweetsapp.models;
 
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,19 +93,14 @@ public class Tweet {
             }
         }
 
-        if(tweetCount > 1) {
+        if(tweetCount > 0) {
             lastTweetId = tweetList.get(tweetCount -1).getUid();
             long firstTweetId = tweetList.get(0).getUid();
-            Log.d("MAX----", String.valueOf(tweetCount));
-            Log.d("FIRST--", String.valueOf(firstTweetId));
-            Log.d("LAST--", String.valueOf(lastTweetId));
             if(firstTweetId >= lastTweetId) {
                 latestTweetId = firstTweetId;
             }
         }
 
-
-        Log.d("LATEST--", String.valueOf(latestTweetId));
         return tweetList;
     }
 
