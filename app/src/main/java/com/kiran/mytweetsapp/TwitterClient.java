@@ -32,6 +32,17 @@ public class TwitterClient extends OAuthBaseClient {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
 	}
 
+    private void getTimeline(String apiUrl, long maxId,long sinceId,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("count", 25);
+        if(maxId > 0) {
+            params.put("max_id", maxId);
+        }
+        if(sinceId > 0) {
+            params.put("since_id", sinceId);
+        }
+        client.get(apiUrl, params, handler);
+    }
 
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
@@ -49,15 +60,10 @@ public class TwitterClient extends OAuthBaseClient {
 
 	public void getHomeTimeline(long maxId,long sinceId,AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
-		RequestParams params = new RequestParams();
-		params.put("count", 25);
-		if(maxId > 1) {
-			params.put("max_id", maxId -1);
-		}
-        if(sinceId > 0) {
-            params.put("since_id", sinceId);
+        if(maxId > 1) {
+            maxId -= 1;
         }
-		client.get(apiUrl,params,handler);
+        getTimeline(apiUrl, maxId, sinceId, handler);
 	}
 
 	//Compose Tweet
@@ -75,14 +81,9 @@ public class TwitterClient extends OAuthBaseClient {
 	// Mentions Timeline
 	//GET /mentions/timeline.json
 	//Params: count, since_id
-	public void getMentionsTimeline(long page, AsyncHttpResponseHandler handler) {
+	public void getMentionsTimeline(long page, long sinceId, AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
-		RequestParams params = new RequestParams();
-		params.put("count", 25);
-		if(page > 1) {
-			params.put("max_id", page);
-		}
-		client.get(apiUrl, params, handler);
+        getTimeline(apiUrl, page, sinceId, handler);
 	}
 
     //Get User Timeline
