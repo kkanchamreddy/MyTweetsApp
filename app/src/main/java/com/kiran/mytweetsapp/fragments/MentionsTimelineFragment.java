@@ -33,7 +33,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                fetchTimelineAsync(0);
+                fetchTimelineAsync();
             }
         });
         // Configure the refreshing colors
@@ -62,11 +62,11 @@ public class MentionsTimelineFragment extends TweetsListFragment {
     }
 
     private void populateTimeline(long maxId) {
-        client.getMentionsTimeline(maxId, new TimelineResponseHandler());
+        client.getMentionsTimeline(maxId, 0, new TimelineResponseHandler());
     }
 
 
-    public void fetchTimelineAsync(int page) {
-        client.getMentionsTimeline(page, new TimelineSwipeResponseHandler());
+    public void fetchTimelineAsync() {
+        client.getMentionsTimeline(0, Tweet.getLatestTweetId(), new TimelineSwipeResponseHandler());
     }
 }
