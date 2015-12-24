@@ -83,6 +83,12 @@ public class TwitterClient extends OAuthBaseClient {
         getTimeline(apiUrl, maxId, sinceId, handler);
 	}
 
+    //Likes Timeline
+    public void getLikesTimeline(long maxId, long sinceId, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("favorites/list.json");
+        getTimeline(apiUrl, maxId, sinceId, handler);
+    }
+
     //Get User Timeline
     public void getUserTimeline(long maxId, long sinceId, String screenName,AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/user_timeline.json");
