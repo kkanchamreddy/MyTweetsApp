@@ -41,7 +41,7 @@ public class UserTimelineFragment extends TweetsListFragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                fetchTimelineAsync(0);
+                fetchTimelineAsync();
             }
         });
         // Configure the refreshing colors
@@ -53,7 +53,7 @@ public class UserTimelineFragment extends TweetsListFragment {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
-                populateTimeline();
+                populateTimeline(Tweet.getLastTweetId() - 1);
                 return true; // ONLY if more data is actually being loaded; false otherwise.
             }
         });
@@ -66,16 +66,17 @@ public class UserTimelineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
 
         client = TwitterApplication.getRestClient();
-        populateTimeline();
+        populateTimeline(lastMaxId);
     }
 
-    private void populateTimeline() {
+    private void populateTimeline(long maxId) {
         String screenName = getArguments().getString("screen_name");
-        client.getUserTimeline(screenName, new TimelineResponseHandler());
+        client.getUserTimeline(maxId, 0, screenName, new TimelineResponseHandler());
     }
 
 
-    public void fetchTimelineAsync(int page) {
-        client.getHomeTimeline(page, Tweet.getLatestTweetId(), new TimelineSwipeResponseHandler());
+    public void fetchTimelineAsync() {
+        String screenName = getArguments().getString("screen_name");
+        client.getUserTimeline(0, Tweet.getLatestTweetId(),screenName, new TimelineSwipeResponseHandler());
     }
 }

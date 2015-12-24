@@ -45,7 +45,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
-                populateTimeline(Tweet.getLastTweetId());
+                populateTimeline(Tweet.getLastTweetId() - 1);
                 return true; // ONLY if more data is actually being loaded; false otherwise.
             }
         });
