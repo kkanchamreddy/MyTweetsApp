@@ -62,10 +62,9 @@ public class Tweet {
             tweet.liked =  jsonObject.getBoolean("favorited");
             //tweet.likeCount =jsonObject.getInt("favourites_count");
             JSONObject entities = jsonObject.getJSONObject("entities");
-           if(entities != null && entities.has("media")) {
+            if(entities != null && entities.has("media")) {
                JSONObject firstMediaObj = (JSONObject)entities.getJSONArray("media").get(0);
                tweet.embeddedImageUrl = firstMediaObj.getString("media_url");
-               //Log.d("Media Image", firstMediaObj.getString("media_url"));
             }
 
             tweet.user = User.fromJSon(jsonObject.getJSONObject("user"));
