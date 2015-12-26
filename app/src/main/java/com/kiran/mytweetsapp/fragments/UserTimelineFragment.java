@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiran.mytweetsapp.EndlessScrollListener;
-import com.kiran.mytweetsapp.TwitterApplication;
 import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 
@@ -18,7 +17,7 @@ import com.kiran.mytweetsapp.models.Tweet;
 public class UserTimelineFragment extends TweetsListFragment {
 
     private TwitterClient client;
-    private int lastMaxId = 0;
+
 
     // Creates a new fragment given an int and title
     public static UserTimelineFragment newInstance( String screen_name) {
@@ -64,8 +63,6 @@ public class UserTimelineFragment extends TweetsListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        client = TwitterApplication.getRestClient();
         populateTimeline(lastMaxId);
     }
 
@@ -74,8 +71,7 @@ public class UserTimelineFragment extends TweetsListFragment {
         client.getUserTimeline(maxId, 0, screenName, new TimelineResponseHandler());
     }
 
-
-    public void fetchTimelineAsync() {
+    private void fetchTimelineAsync() {
         String screenName = getArguments().getString("screen_name");
         client.getUserTimeline(0, Tweet.getLatestTweetId(),screenName, new TimelineSwipeResponseHandler());
     }

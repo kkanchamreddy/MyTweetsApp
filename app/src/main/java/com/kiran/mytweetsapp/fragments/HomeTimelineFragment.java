@@ -8,18 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiran.mytweetsapp.EndlessScrollListener;
-import com.kiran.mytweetsapp.TwitterApplication;
-import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 
 /**
  * Created by kkanchamreddy on 12/18/15.
  */
 public class HomeTimelineFragment extends TweetsListFragment {
-
-    private TwitterClient client;
-    private int lastMaxId = 0;
-
 
     @Nullable
     @Override
@@ -56,17 +50,17 @@ public class HomeTimelineFragment extends TweetsListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        client = TwitterApplication.getRestClient();
         populateTimeline(lastMaxId);
     }
 
+
+
     private void populateTimeline(long maxId) {
-        client.getHomeTimeline(maxId,0, new TimelineResponseHandler());
+        client.getHomeTimeline(maxId, 0, new TimelineResponseHandler());
     }
 
 
-    public void fetchTimelineAsync() {
+    private void fetchTimelineAsync() {
         client.getHomeTimeline(0, Tweet.getLatestTweetId(), new TimelineSwipeResponseHandler());
     }
 

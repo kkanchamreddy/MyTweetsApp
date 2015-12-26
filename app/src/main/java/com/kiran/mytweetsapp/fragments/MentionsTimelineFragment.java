@@ -3,22 +3,18 @@ package com.kiran.mytweetsapp.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiran.mytweetsapp.EndlessScrollListener;
-import com.kiran.mytweetsapp.TwitterApplication;
-import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 
 /**
  * Created by kkanchamreddy on 12/19/15.
  */
 public class MentionsTimelineFragment extends TweetsListFragment {
-
-    private TwitterClient client;
-    private int lastMaxId = 0;
 
 
     @Nullable
@@ -56,17 +52,31 @@ public class MentionsTimelineFragment extends TweetsListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        client = TwitterApplication.getRestClient();
         populateTimeline(lastMaxId);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("MENTIONS-TIMELINE", "RESUMED");
+        populateTimeline(lastMaxId);
+    }
     private void populateTimeline(long maxId) {
         client.getMentionsTimeline(maxId, 0, new TimelineResponseHandler());
     }
 
 
-    public void fetchTimelineAsync() {
+    private void fetchTimelineAsync() {
         client.getMentionsTimeline(0, Tweet.getLatestTweetId(), new TimelineSwipeResponseHandler());
     }
 }

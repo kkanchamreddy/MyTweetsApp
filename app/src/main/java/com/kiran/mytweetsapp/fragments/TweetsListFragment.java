@@ -12,6 +12,8 @@ import android.widget.ListView;
 
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TweetsArrayAdapter;
+import com.kiran.mytweetsapp.TwitterApplication;
+import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -31,6 +33,9 @@ public class TweetsListFragment extends Fragment {
     protected ListView lvTweets;
     private ArrayList<Tweet> tweets;
     protected SwipeRefreshLayout swipeContainer;
+    int lastMaxId = 0;
+    TwitterClient client;
+    boolean isPaused = false;
 
     //Infaltion Logic
 
@@ -51,16 +56,15 @@ public class TweetsListFragment extends Fragment {
 
 
     //Creation Lifecycle Event
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         tweets = new ArrayList<>();
-
         tweetsAdapter = new TweetsArrayAdapter(getActivity(), tweets);
+        client = TwitterApplication.getRestClient();
     }
+
 
     public void addAll(List<Tweet> tweetList) {
         tweetsAdapter.addAll(tweetList);
@@ -116,4 +120,7 @@ public class TweetsListFragment extends Fragment {
 
 
     }
+
+ 
+
 }

@@ -3,21 +3,18 @@ package com.kiran.mytweetsapp.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiran.mytweetsapp.EndlessScrollListener;
-import com.kiran.mytweetsapp.TwitterApplication;
-import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 
 /**
  * Created by kkanchamreddy on 12/24/15.
  */
 public class LikesTimelineFragment extends TweetsListFragment {
-    private TwitterClient client;
-    private int lastMaxId = 0;
 
 
     @Nullable
@@ -55,8 +52,13 @@ public class LikesTimelineFragment extends TweetsListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        populateTimeline(lastMaxId);
+    }
 
-        client = TwitterApplication.getRestClient();
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("LIKES-TIMELINE", "RESUMED");
         populateTimeline(lastMaxId);
     }
 
@@ -65,7 +67,7 @@ public class LikesTimelineFragment extends TweetsListFragment {
     }
 
 
-    public void fetchTimelineAsync() {
+    private void fetchTimelineAsync() {
         client.getLikesTimeline(0, Tweet.getLatestTweetId(), new TimelineSwipeResponseHandler());
     }
 }
