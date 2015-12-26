@@ -8,16 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiran.mytweetsapp.EndlessScrollListener;
-import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;
 
 /**
  * Created by kkanchamreddy on 12/19/15.
  */
 public class UserTimelineFragment extends TweetsListFragment {
-
-    private TwitterClient client;
-
 
     // Creates a new fragment given an int and title
     public static UserTimelineFragment newInstance( String screen_name) {
@@ -64,6 +60,15 @@ public class UserTimelineFragment extends TweetsListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         populateTimeline(lastMaxId);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isPaused) {
+            isPaused = false;
+            fetchTimelineAsync();
+        }
     }
 
     private void populateTimeline(long maxId) {

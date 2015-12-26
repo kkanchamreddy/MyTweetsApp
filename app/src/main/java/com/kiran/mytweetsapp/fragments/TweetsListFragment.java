@@ -65,6 +65,11 @@ public class TweetsListFragment extends Fragment {
         client = TwitterApplication.getRestClient();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPaused = true;
+    }
 
     public void addAll(List<Tweet> tweetList) {
         tweetsAdapter.addAll(tweetList);
@@ -117,10 +122,10 @@ public class TweetsListFragment extends Fragment {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Log.d("DEBUG", "Fetch timeline error: " + errorResponse);
         }
-
-
     }
 
- 
+    public boolean isPaused() {
+        return isPaused;
+    }
 
 }

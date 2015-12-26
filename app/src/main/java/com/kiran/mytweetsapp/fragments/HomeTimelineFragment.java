@@ -53,7 +53,14 @@ public class HomeTimelineFragment extends TweetsListFragment {
         populateTimeline(lastMaxId);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isPaused) {
+           isPaused = false;
+            fetchTimelineAsync();
+        }
+    }
 
     private void populateTimeline(long maxId) {
         client.getHomeTimeline(maxId, 0, new TimelineResponseHandler());
