@@ -57,6 +57,7 @@ public class Tweet {
         try {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
+
             tweet.createdAt = jsonObject.getString("created_at");
             tweet.retweetCount = jsonObject.getInt("retweet_count");
             tweet.liked =  jsonObject.getBoolean("favorited");
@@ -117,7 +118,6 @@ public class Tweet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return relativeDate;
     }
 

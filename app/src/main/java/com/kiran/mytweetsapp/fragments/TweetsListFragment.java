@@ -1,5 +1,6 @@
 package com.kiran.mytweetsapp.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,8 @@ public class TweetsListFragment extends Fragment {
     int lastMaxId = 0;
     TwitterClient client;
     boolean isPaused = false;
+
+    ProgressDialog progress;
 
     //Infaltion Logic
 
@@ -101,6 +104,17 @@ public class TweetsListFragment extends Fragment {
         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
             Log.d("DEBUG", "Home timeline fetch error: " + errorResponse);
         }
+
+      /* @Override
+       public void onProgress(long bytesWritten, long totalSize) {
+           progress = ProgressDialog.show(getActivity(), getString(R.string.loading),
+                   getString(R.string.loadingMsg), false);
+       }
+
+       @Override
+       public void onFinish() {
+           progress.dismiss();
+       }*/
 
     }
 
