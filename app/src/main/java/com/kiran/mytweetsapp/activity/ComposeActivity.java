@@ -28,6 +28,8 @@ public class ComposeActivity extends AppCompatActivity {
 
     private TwitterClient client;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

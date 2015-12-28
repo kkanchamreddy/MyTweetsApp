@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.astuetz.PagerSlidingTabStrip;
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TwitterClient;
+import com.kiran.mytweetsapp.fragments.ComposeFragment;
 import com.kiran.mytweetsapp.fragments.HomeTimelineFragment;
 import com.kiran.mytweetsapp.fragments.LikesTimelineFragment;
 import com.kiran.mytweetsapp.fragments.MentionsTimelineFragment;
@@ -76,8 +77,9 @@ public class TimelineActivity extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_compose:
-                Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-                startActivityForResult(i, REQUEST_CODE);
+                //Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+                //startActivityForResult(i, REQUEST_CODE);
+                showComposeDialog();
                 return true;
             case R.id.action_profile:
                 Intent profileIntent = new Intent(TimelineActivity.this, ProfileActivity.class);
@@ -87,6 +89,13 @@ public class TimelineActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
+    }
+
+    private void showComposeDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeFragment frag = ComposeFragment.newInstance(null);
+        frag.show(fm, "fragment_edit_name");
 
     }
 
