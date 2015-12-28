@@ -25,6 +25,7 @@ public class Tweet {
     private int likeCount;
     private User user;
     private boolean liked;
+    private boolean isRetweeted;
     private static long lastTweetId;
     private static long latestTweetId;
 
@@ -46,9 +47,13 @@ public class Tweet {
         return user;
     }
     public boolean isliked(){return liked;}
+    public boolean isRetweeted(){return isRetweeted;}
 
     public void setLiked(boolean liked ) {
         this.liked = liked;
+    }
+    public void setRetweeted(boolean isRetweeted ) {
+        this.isRetweeted = isRetweeted;
     }
 
     //Deserialize the JSON
@@ -61,6 +66,7 @@ public class Tweet {
             tweet.createdAt = jsonObject.getString("created_at");
             tweet.retweetCount = jsonObject.getInt("retweet_count");
             tweet.liked =  jsonObject.getBoolean("favorited");
+            tweet.isRetweeted =  jsonObject.getBoolean("retweeted");
             //tweet.likeCount =jsonObject.getInt("favourites_count");
             JSONObject entities = jsonObject.getJSONObject("entities");
             if(entities != null && entities.has("media")) {

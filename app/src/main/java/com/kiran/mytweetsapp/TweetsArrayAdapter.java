@@ -107,8 +107,10 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
             viewHolder.likeIcon.setImageResource(R.drawable.ic_like);
         }
 
-        if(tweet.isliked()) {
-            viewHolder.likeIcon.setImageResource(R.drawable.ic_liked);
+        if(tweet.isRetweeted()) {
+            viewHolder.retweetIcon.setImageResource(R.drawable.ic_retweeted);
+        } else {
+            viewHolder.retweetIcon.setImageResource(R.drawable.ic_retweet);
         }
 
         //Handle the click event on Reply to Icon
@@ -129,7 +131,18 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
                 client.postRetweet(tweet.getUid(), new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Toast.makeText(getContext(), "Successfully Retweeted!!", Toast.LENGTH_LONG).show();
+                        String toastMsg;
+                        Tweet tempTweet = Tweet.fromJSON(response);
+                        tweet.setRetweeted(tempTweet.isRetweeted());
+                        if(tempTweet.isRetweeted()) {
+                            viewHolder.retweetIcon.setImageResource(R.drawable.ic_retweeted);
+                            toastMsg = "Successfully Retweeted!!";
+                        } else {
+                            viewHolder.retweetIcon.setImageResource(R.drawable.ic_retweet);
+                            toastMsg = "You undid the retweet !!";
+                        }
+
+                        Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
