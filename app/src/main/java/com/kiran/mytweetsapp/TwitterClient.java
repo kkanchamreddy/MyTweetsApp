@@ -143,4 +143,11 @@ public class TwitterClient extends OAuthBaseClient {
         client.post(apiUrl,params,handler);
 
     }
+
+    //get the user's lists
+
+    public void getLists(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("lists/ownerships.json");
+        client.get(apiUrl,handler);
+    }
 }

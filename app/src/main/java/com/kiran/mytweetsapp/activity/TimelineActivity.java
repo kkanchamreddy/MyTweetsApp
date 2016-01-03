@@ -19,6 +19,7 @@ import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.fragments.ComposeFragment;
 import com.kiran.mytweetsapp.fragments.HomeTimelineFragment;
 import com.kiran.mytweetsapp.fragments.LikesTimelineFragment;
+import com.kiran.mytweetsapp.fragments.ListsTimelineFragment;
 import com.kiran.mytweetsapp.fragments.MentionsTimelineFragment;
 
 public class TimelineActivity extends AppCompatActivity {
@@ -114,7 +115,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     //Return the order of fragments in the view page
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
-        private String tabTitles[] = {"Home", "Mentions", "Likes"};
+        private String tabTitles[] = {"Home", "Mentions", "Likes", "Lists"};
 
 
         //Adapter gets the manager to insert or remove fragments from the activity
@@ -131,6 +132,9 @@ public class TimelineActivity extends AppCompatActivity {
                 return new MentionsTimelineFragment();
             } else if(position == 2) {
                 return new LikesTimelineFragment();
+            }
+            else if(position == 3) {
+                return new ListsTimelineFragment();
             }
             return null;
         }

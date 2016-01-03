@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.kiran.mytweetsapp.R;
-import com.kiran.mytweetsapp.TweetsArrayAdapter;
+import com.kiran.mytweetsapp.adapters.TweetsArrayAdapter;
 import com.kiran.mytweetsapp.TwitterApplication;
 import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.models.Tweet;

@@ -1,4 +1,4 @@
-package com.kiran.mytweetsapp;
+package com.kiran.mytweetsapp.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kiran.mytweetsapp.R;
+import com.kiran.mytweetsapp.TwitterApplication;
+import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.activity.ComposeActivity;
 import com.kiran.mytweetsapp.activity.ProfileActivity;
 import com.kiran.mytweetsapp.models.Tweet;
