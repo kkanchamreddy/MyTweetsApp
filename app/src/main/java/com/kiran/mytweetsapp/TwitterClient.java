@@ -145,9 +145,22 @@ public class TwitterClient extends OAuthBaseClient {
     }
 
     //get the user's lists
-
     public void getLists(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("lists/ownerships.json");
-        client.get(apiUrl,handler);
+        client.get(apiUrl, handler);
+    }
+
+    //get the timeline of a list
+    public void getListTimeline(long maxId, long sinceId, String listId, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("lists/statuses.json");
+        RequestParams params = new RequestParams();
+        if(maxId > 0) {
+            params.put("max_id", maxId);
+        }
+        if(sinceId > 0) {
+            params.put("since_id", sinceId);
+        }
+        params.put("list_id", listId);
+        client.get(apiUrl,params,handler);
     }
 }

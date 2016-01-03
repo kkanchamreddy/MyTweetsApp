@@ -1,7 +1,5 @@
 package com.kiran.mytweetsapp.models;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +34,6 @@ public class List {
     public static ArrayList<List> fromJSONArray(JSONArray response) {
         ArrayList<List> tweetList = new ArrayList<>();
         int listCount = response.length();
-        Log.d("fromJSONArray", String.valueOf(listCount));
         for(int i = 0; i< listCount; i++) {
             JSONObject listJSON = null;
             try {
@@ -48,7 +45,6 @@ public class List {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                continue;
             }
         }
         return tweetList;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,15 +15,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.kiran.mytweetsapp.FragmentChangeListener;
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TwitterClient;
 import com.kiran.mytweetsapp.fragments.ComposeFragment;
 import com.kiran.mytweetsapp.fragments.HomeTimelineFragment;
 import com.kiran.mytweetsapp.fragments.LikesTimelineFragment;
-import com.kiran.mytweetsapp.fragments.ListsTimelineFragment;
+import com.kiran.mytweetsapp.fragments.ListsFragment;
 import com.kiran.mytweetsapp.fragments.MentionsTimelineFragment;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements FragmentChangeListener {
 
     private TwitterClient client;
 
@@ -111,6 +113,14 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.viewpager, fragment, fragment.toString());
+        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.commit();
+    }
 
 
     //Return the order of fragments in the view page
@@ -134,7 +144,7 @@ public class TimelineActivity extends AppCompatActivity {
                 return new LikesTimelineFragment();
             }
             else if(position == 3) {
-                return new ListsTimelineFragment();
+                return new ListsFragment();
             }
             return null;
         }
