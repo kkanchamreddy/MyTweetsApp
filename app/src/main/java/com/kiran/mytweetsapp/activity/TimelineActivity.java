@@ -30,6 +30,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     private int lastMaxId = 0;
     private TweetsPagerAdapter tweetsPagerAdapter;
+    private ViewPager mPager;
 
 
     private final int REQUEST_CODE = 1;
@@ -54,7 +55,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         //Get the view pager
         ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
-
+        mPager = vpPager;
         //Set the view pager adapter for the pager
         tweetsPagerAdapter = new TweetsPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(tweetsPagerAdapter);
@@ -201,4 +202,15 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(mPager.getCurrentItem() == 3) {
+            if (tweetsPagerAdapter.getItem(3) instanceof ListsTimelineFragment) {
+                ((ListsTimelineFragment) tweetsPagerAdapter.getItem(3)).backPressed();
+            }
+            else if (tweetsPagerAdapter.getItem(3) instanceof ListsFragment) {
+                finish();
+            }
+        }
+    }
 }

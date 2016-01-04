@@ -86,4 +86,8 @@ public class ListsTimelineFragment extends TweetsListFragment {
         client.getListTimeline(0, Tweet.getLatestTweetId(), listId, new TimelineSwipeResponseHandler());
     }
 
+    public void backPressed() {
+        fragmentChangeListener.onFragmentChange(0);
+    }
+
 }
