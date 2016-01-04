@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,13 +21,15 @@ import com.kiran.mytweetsapp.fragments.ComposeFragment;
 import com.kiran.mytweetsapp.fragments.HomeTimelineFragment;
 import com.kiran.mytweetsapp.fragments.LikesTimelineFragment;
 import com.kiran.mytweetsapp.fragments.ListsFragment;
+import com.kiran.mytweetsapp.fragments.ListsTimelineFragment;
 import com.kiran.mytweetsapp.fragments.MentionsTimelineFragment;
 
-public class TimelineActivity extends AppCompatActivity implements FragmentChangeListener {
+public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
 
     private int lastMaxId = 0;
+    private TweetsPagerAdapter tweetsPagerAdapter;
 
 
     private final int REQUEST_CODE = 1;
@@ -55,7 +56,8 @@ public class TimelineActivity extends AppCompatActivity implements FragmentChang
         ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
 
         //Set the view pager adapter for the pager
-        vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+        tweetsPagerAdapter = new TweetsPagerAdapter(getSupportFragmentManager());
+        vpPager.setAdapter(tweetsPagerAdapter);
 
         //Find the Page sliding tabstrip
         PagerSlidingTabStrip psTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -113,24 +115,42 @@ public class TimelineActivity extends AppCompatActivity implements FragmentChang
         }
     }
 
+    /*
     @Override
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.viewpager, fragment, fragment.toString());
-        fragmentTransaction.addToBackStack(fragment.toString());
+        fragmentTransaction.replace(R.id.viewpager, fragment, "fragment");
+        fragmentTransaction.addToBackStack("fragment");
         fragmentTransaction.commit();
+        tweetsPagerAdapter.notifyDataSetChanged();
     }
-
+*/
 
     //Return the order of fragments in the view page
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
         private String tabTitles[] = {"Home", "Mentions", "Likes", "Lists"};
+        private Fragment mFragmentAtPos3;
+        private final FragmentManager mFragmentManager;
+        FragmentChangeListener listener = new PageListener();
 
+        private final class PageListener implements
+                FragmentChangeListener {
+            public void onFragmentChange(long id) {
+                mFragmentManager.beginTransaction().remove(mFragmentAtPos3).commit();
+                if (mFragmentAtPos3 instanceof ListsFragment){
+                    mFragmentAtPos3 = ListsTimelineFragment.newInstance(id, listener);
+                }else{ // Instance of NextFragment
+                    mFragmentAtPos3 =  ListsFragment.newInstance(listener);
+                }
+                notifyDataSetChanged();
+            }
+        }
 
         //Adapter gets the manager to insert or remove fragments from the activity
         public TweetsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
         }
 
         //The order and creation of fragments with in the pager
@@ -142,11 +162,30 @@ public class TimelineActivity extends AppCompatActivity implements FragmentChang
                 return new MentionsTimelineFragment();
             } else if(position == 2) {
                 return new LikesTimelineFragment();
-            }
-            else if(position == 3) {
-                return new ListsFragment();
+            } else if(position == 3) {
+                if (mFragmentAtPos3 == null)
+                {
+                    mFragmentAtPos3 = ListsFragment.newInstance(listener);;
+                }
+                return mFragmentAtPos3;
             }
             return null;
+        }
+
+       @Override
+        public int getItemPosition(Object object)
+        {
+           // Log.d("OBJECT -INSTANCE", String.valueOf(object instanceof ListsFragment));
+            // Log.d("mFragmentAtPos3", String.valueOf(mFragmentAtPos3 instanceof ListsTimelineFragment));
+            if (object instanceof ListsFragment &&
+                    mFragmentAtPos3 instanceof ListsTimelineFragment) {
+                return POSITION_NONE;
+            }
+            if (object instanceof ListsTimelineFragment &&
+                    mFragmentAtPos3 instanceof ListsFragment) {
+                return POSITION_NONE;
+            }
+            return POSITION_UNCHANGED;
         }
 
         //Returns the tab title

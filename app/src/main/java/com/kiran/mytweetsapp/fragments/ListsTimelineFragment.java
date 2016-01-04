@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kiran.mytweetsapp.EndlessScrollListener;
+import com.kiran.mytweetsapp.FragmentChangeListener;
 import com.kiran.mytweetsapp.models.Tweet;
 
 /**
@@ -15,9 +16,12 @@ import com.kiran.mytweetsapp.models.Tweet;
  */
 public class ListsTimelineFragment extends TweetsListFragment {
 
+    static FragmentChangeListener fragmentChangeListener;
+
     // Creates a new fragment given an int and title
-    public static ListsTimelineFragment newInstance( long listId) {
+    public static ListsTimelineFragment newInstance( long listId, FragmentChangeListener listener) {
         ListsTimelineFragment listFragment = new ListsTimelineFragment();
+        fragmentChangeListener = listener;
         Bundle args = new Bundle();
         args.putString("list_id", String.valueOf(listId));
         listFragment.setArguments(args);

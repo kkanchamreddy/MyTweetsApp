@@ -1,7 +1,6 @@
 package com.kiran.mytweetsapp.adapters;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kiran.mytweetsapp.FragmentChangeListener;
 import com.kiran.mytweetsapp.R;
-import com.kiran.mytweetsapp.fragments.ListsTimelineFragment;
 import com.kiran.mytweetsapp.models.List;
 
 /**
@@ -61,14 +58,14 @@ public class ListArrayAdapter extends ArrayAdapter<List> {
         //4.Populate the data into subviews
         viewHolder.name.setText(tweetList.getName());
         viewHolder.description.setText(tweetList.getDescription());
-        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+        /* viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fr= ListsTimelineFragment.newInstance(tweetList.getId());
+               Fragment fr= ListsTimelineFragment.newInstance(tweetList.getId());
                 FragmentChangeListener fc=(FragmentChangeListener)getContext();
                 fc.replaceFragment(fr);
             }
-        });
+        });*/
 
         //5. Return the view to be inserted into the list
         return convertView;

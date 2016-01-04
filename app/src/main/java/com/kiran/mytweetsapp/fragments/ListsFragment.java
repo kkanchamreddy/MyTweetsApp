@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.kiran.mytweetsapp.FragmentChangeListener;
 import com.kiran.mytweetsapp.R;
 import com.kiran.mytweetsapp.TwitterApplication;
 import com.kiran.mytweetsapp.TwitterClient;
@@ -32,6 +34,15 @@ public class ListsFragment extends Fragment {
     protected ListView lvList;
     private ArrayList<List> lists;
     TwitterClient client;
+    static FragmentChangeListener fragmentChangeListener;
+
+
+    // Creates a new fragment given an int and title
+    public static ListsFragment newInstance(  FragmentChangeListener listener) {
+        ListsFragment listFragment = new ListsFragment();
+        fragmentChangeListener = listener;
+        return listFragment;
+    }
 
     @Nullable
     @Override
@@ -40,6 +51,26 @@ public class ListsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_lists, container, false);
         lvList = (ListView)v.findViewById(R.id.lvLists);
         lvList.setAdapter(listAdapter);
+
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                List tweetList = lists.get(position);
+                fragmentChangeListener.onFragmentChange(tweetList.getId());
+                /*
+                Fragment listTimelineFragment = ListsTimelineFragment.newInstance(tweetList.getId());
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.addToBackStack(null);
+                transaction.replace(R.id.vTweetListContainer, listTimelineFragment).commit();*/
+
+               /* Fragment fr= ListsTimelineFragment.newInstance(tweetList.getId());
+                FragmentChangeListener fc=(FragmentChangeListener)getContext();
+                fc.replaceFragment(fr);*/
+
+
+
+            }
+        });
 
         return  v;
     }
