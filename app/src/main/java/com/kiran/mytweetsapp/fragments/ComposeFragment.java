@@ -92,7 +92,6 @@ public class ComposeFragment  extends DialogFragment {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.d("Compose Success", response.toString());
                         // Prepare data intent
                         Intent data = new Intent();
                         getDialog().dismiss();
