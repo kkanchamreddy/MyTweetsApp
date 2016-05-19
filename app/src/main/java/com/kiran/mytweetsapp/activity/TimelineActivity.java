@@ -83,8 +83,6 @@ public class TimelineActivity extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_compose:
-                //Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
-                //startActivityForResult(i, REQUEST_CODE);
                 showComposeDialog();
                 return true;
             case R.id.action_profile:
@@ -116,17 +114,6 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    @Override
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();;
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.viewpager, fragment, "fragment");
-        fragmentTransaction.addToBackStack("fragment");
-        fragmentTransaction.commit();
-        tweetsPagerAdapter.notifyDataSetChanged();
-    }
-*/
 
     //Return the order of fragments in the view page
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
