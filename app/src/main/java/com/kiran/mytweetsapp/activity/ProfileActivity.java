@@ -30,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         client = TwitterApplication.getRestClient();
-        //String screenName = getIntent().getStringExtra("screen_name");
+        
 
         Toolbar profileToolbar = (Toolbar) findViewById(R.id.profile_toolbar);
         setSupportActionBar(profileToolbar);
