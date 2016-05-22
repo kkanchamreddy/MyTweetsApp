@@ -51,7 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
         client.getUserInfo(screenName, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                //super.onSuccess(statusCode, headers, response);
                 user = User.fromJSon(response);
                 //Current User's info
                 getSupportActionBar().setTitle("@" + user.getScreenName());
